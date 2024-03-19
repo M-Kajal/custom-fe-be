@@ -1,6 +1,7 @@
 # My Frontend Application
 
 This is a frontend application for interacting with a two-tier application.
+This is for testing.
 
 ## Getting Started
 
