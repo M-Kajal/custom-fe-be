@@ -63,4 +63,4 @@ U2jSz0Q2KIrAUpXJ80VpZVplH6faGLGdpgIS4LiviDCMUY1g7nOjLBcq3MRrxQHw
 LBn9f7Cca2yCKlzehecYz9O0aD5OlhVz6WbH8DFIdv3YUf4SAPs=
 -----END RSA PRIVATE KEY-----
         source: "frontend/" # Change this path to your build output directory
-        target: "/home/ubuntu/actions-runner/kajal/frontend" # Change this path to your web server directory
+        target: "/home/ubuntu/actions-runner/kajal/custom-fe-be/frontend" # Change this path to your web server directory
