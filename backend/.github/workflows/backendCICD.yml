@@ -1,1 +1,60 @@
 
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          # Add commands to install backend dependencies here
+          # For example: pip install -r requirements.txt
+
+      - name: Build
+        run: |
+          # Add commands to build backend here
+          # For example: python manage.py collectstatic
+
+      - name: Deploy
+        uses: appleboy/scp-action@master
+        with:
+          host: 44.201.176.231    
+          username: ubuntu
+          key: -----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEArrttdNGz9My+Sgy3s7s9fYF7jTPk235vd2V/Gf9R3VoJUEsK
+7+QfLzr08lJjDsb9R7tE4wvL1DrIhJL/cq/lfisu552phVbmJGpz+iusXgY5vpex
+P2X3hXAzTsapNLJLtRiJSLYgEYYt3Lv8gDtbrPRMrPSzCZUIaqkJw2fxvWULfe/N
+wdOemid5fgdZTKWodpaEXaEdFT3lT6dQ2H9G8pHaQ3aZEg6sUOrJhpE3p8YYYInB
+3TQHOvSguUz1Q/q7FWQ8FlvRR34hT1LbGWntVQAp88vLJBtMD0z/AluBabrAOphO
+GjydBivdoMuXuqPfgmWazKMFGelwhQQtAwWoSQIDAQABAoIBAE/qXTduqdWuxuFr
+S6GiY49BZ1a/g054V1bOTwF+6txIT7YvfEMXnMOnPVyPHcsma7UhC3KkdIcOk6M+
+8CJuHJJGAd/hFiVsBzpkjcK/ssgWJNbs3h5W7oxTMsQ2zDDT0xhyrmdZFPWu3s70
+E5o6i8VgvqjkCfa5+O1/fn2mzsOF7p7ag9/5pB0V9+bz9Xya5356yHHvEZOzCpEf
+UswoXur7jp1MWDb0kL3oE4GxbQOzLrrxEBHljmuznx7tsM+twQhT44GqI14snAU1
+XATY/mAFYiGcTKk3IlyOftB2ZU58VTnILM4orAGCewM2ijbARWF0w07W1WAclwZw
+NTcEU7kCgYEA7cTimnpGGKy3sbo7XJkePcmf/zen6509rS7qn70K9fKEOfsFy49o
+SxxiZ7greUk5MaCR3CqXUYSTrQTrd3jO+AVyva4gzXY3yeQ9OHNAAKpfaN4C1Go3
+8mpvg2sNDDN4DTHF7JFKwrumUnFE4C7hmYf7wvTGuC5q1cgZkvFbv0cCgYEAvCE0
+ZWRxFO1m2vk+9W/U7ntFRl4olNeZvsebXdbp3KWRkRt5WQDtM7r0+VaC/4aJU+Hg
+eEy9z51AYz3uVJB5ZCPNHJXbsQVbOv8MrJa2pfUoDiXwvoPg02LjozHdylsF3+xw
+APh1ALkNPAQBqD860PAyj5vro0aXH6ycM2p9w+8CgYAidXhJ3xKtnMp6jXzw7Jf/
+aGsxt8U0VnOL19LVF7aw8lbLeF/coooA6LoyQfS6/Su2z4iUGfAYNliYqK/ffriw
+JUn9x3Cllk57igJ9XeaWshplvlc2pbY6AcbriuY3MHZjoyUGJgBpvHxcUmIjA2ha
+seSA2qy6ILAHD5r1OtmLHQKBgCSiaqub5ZFnsXHOu33b6yENjC3pxAlH+r517EFX
+ym6XJ0OUkArO7WH3dCDhwdy0fCWDhMyoVQYK3zD0LGb3Q0xG1HhOjltoaZ2RcQxi
+xOqIVOZ8aOcQk0VWqnFrEn+HPhue1Si7OT2My5D2TsROm8t4GsBwYnCHHIKkgD5a
+7GatAoGAC1qErp/TNNNfb38E2cqmZtr1cAKXxhvF63uTBcmdqd3cl+OAVmpzMu+N
+U2jSz0Q2KIrAUpXJ80VpZVplH6faGLGdpgIS4LiviDCMUY1g7nOjLBcq3MRrxQHw
+LBn9f7Cca2yCKlzehecYz9O0aD5OlhVz6WbH8DFIdv3YUf4SAPs=
+-----END RSA PRIVATE KEY-----
+          source: "backend/" # Change this path to your build output directory
+          target: "/home/ubuntu/actions-runner/kajal/backend" # Change this path to your web server directory
