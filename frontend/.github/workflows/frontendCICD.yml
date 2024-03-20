@@ -7,29 +7,35 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Install dependencies
-        run: |
-          # Add commands to install frontend dependencies here
-          # For example: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build
-        run: |
-          # Add commands to build frontend here
-          # For example: npm run build
+    - name: Build
+      run: npm run build
 
-      - name: Deploy
-        uses: appleboy/scp-action@master
-        with:
-          host: 44.201.176.231    
-          username: ubuntu
-          key: -----BEGIN RSA PRIVATE KEY-----
+    - name: Serve Static Content
+      run: |
+        npm install -g serve
+        serve -s build
+
+    - name: Deploy
+      uses: appleboy/scp-action@master
+      with:
+        host: 44.201.176.231    
+        username: ubuntu
+        key: -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEArrttdNGz9My+Sgy3s7s9fYF7jTPk235vd2V/Gf9R3VoJUEsK
 7+QfLzr08lJjDsb9R7tE4wvL1DrIhJL/cq/lfisu552phVbmJGpz+iusXgY5vpex
 P2X3hXAzTsapNLJLtRiJSLYgEYYt3Lv8gDtbrPRMrPSzCZUIaqkJw2fxvWULfe/N
@@ -56,5 +62,5 @@ xOqIVOZ8aOcQk0VWqnFrEn+HPhue1Si7OT2My5D2TsROm8t4GsBwYnCHHIKkgD5a
 U2jSz0Q2KIrAUpXJ80VpZVplH6faGLGdpgIS4LiviDCMUY1g7nOjLBcq3MRrxQHw
 LBn9f7Cca2yCKlzehecYz9O0aD5OlhVz6WbH8DFIdv3YUf4SAPs=
 -----END RSA PRIVATE KEY-----
-          source: "frontend/" # Change this path to your build output directory
-          target: "/home/ubuntu/actions-runner/kajal/frontend" # Change this path to your web server directory
+        source: "frontend/" # Change this path to your build output directory
+        target: "/home/ubuntu/actions-runner/kajal/frontend" # Change this path to your web server directory

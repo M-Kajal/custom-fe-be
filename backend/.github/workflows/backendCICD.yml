@@ -7,29 +7,33 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          # Add commands to install backend dependencies here
-          # For example: pip install -r requirements.txt
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-      - name: Build
-        run: |
-          # Add commands to build backend here
-          # For example: python manage.py collectstatic
+    - name: Install Flask
+      run: pip install flask
 
-      - name: Deploy
-        uses: appleboy/scp-action@master
-        with:
-          host: 44.201.176.231    
-          username: ubuntu
-          key: -----BEGIN RSA PRIVATE KEY-----
+    - name: Install Flask
+      run: pip install flask-cors
+
+    - name: Start Backend Server
+      run: python3 app.py
+
+    - name: Deploy
+      uses: appleboy/scp-action@master
+      with:
+        host: 44.201.176.231    
+        username: ubuntu
+        key: -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEArrttdNGz9My+Sgy3s7s9fYF7jTPk235vd2V/Gf9R3VoJUEsK
 7+QfLzr08lJjDsb9R7tE4wvL1DrIhJL/cq/lfisu552phVbmJGpz+iusXgY5vpex
 P2X3hXAzTsapNLJLtRiJSLYgEYYt3Lv8gDtbrPRMrPSzCZUIaqkJw2fxvWULfe/N
@@ -56,5 +60,5 @@ xOqIVOZ8aOcQk0VWqnFrEn+HPhue1Si7OT2My5D2TsROm8t4GsBwYnCHHIKkgD5a
 U2jSz0Q2KIrAUpXJ80VpZVplH6faGLGdpgIS4LiviDCMUY1g7nOjLBcq3MRrxQHw
 LBn9f7Cca2yCKlzehecYz9O0aD5OlhVz6WbH8DFIdv3YUf4SAPs=
 -----END RSA PRIVATE KEY-----
-          source: "backend/" # Change this path to your build output directory
-          target: "/home/ubuntu/actions-runner/kajal/backend" # Change this path to your web server directory
+        source: "backend/" # Change this path to your build output directory
+        target: "/home/ubuntu/actions-runner/kajal" # Change this path to your web server directory
